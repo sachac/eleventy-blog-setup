@@ -1,0 +1,4 @@
+<nav aria-labelledby="my-pagination">
+{% if pagination.href.previous %}<div class="left"><a href="{{ pagination.href.previous }}">&laquo; {{ pagination.pages[pagination.pageNumber - 1][0] }}</a></div>{% endif %}
+{% if pagination.href.next %}<div class="right"><a href="{{ pagination.href.next }}">{{ pagination.pages[pagination.pageNumber + 1][0] }} &raquo;</a></div>{% endif %}
+</nav>

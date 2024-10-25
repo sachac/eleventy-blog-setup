@@ -1,0 +1,12 @@
+node_modules
+.cache
+_site
+_local
+content/pages/downloaded
+content/posts/downloaded
+content/posts/2021
+log
+.stfolder
+.rgignore
+*~
+.well-known
