@@ -54,10 +54,12 @@ module.exports = class Taxonomy {
 <h2><a href="/blog/${item.type}">${base}:</a> ${parentPath}<a href="/blog/${item.type}/${item.key}">${item.key}</a></h2>
 <div>${topicLink}<a href="${data.rss}">RSS</a> - <a href="${data.atom}">Atom</a> - ${this.rssByEmail(this.absoluteUrl(data.rss, data.metadata.url))}</div>
 ${description}
-${this.pageNav(data)}
+<div class="sticky-toc">
+${this.pageNav(data, item)}
 ${this.onThisPage(item.list)}
+</div>
 ${await this.archive(item.list, 'post')}
-${this.pageNav(data)}
+${this.pageNav(data, item)}
 `;
   }
 };

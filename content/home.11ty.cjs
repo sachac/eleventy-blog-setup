@@ -29,9 +29,13 @@ module.exports = class Home {
   }
   async render(data) {
     let ref = this;
-    let nav = this.pageNav(data);
-    return `${nav}
-${await this.listWithNav(data.pagination.items[0], 'post')}
+    let nav = this.pageNav(data, {total: data.collections._posts.length});
+    return `
+<div class="sticky-toc">
+${nav}
+${await this.onThisPage(data.pagination.items[0], 'post')}
+</div>
+${await this.archive(data.pagination.items[0], 'post')}
 ${nav}`;
   }
 };

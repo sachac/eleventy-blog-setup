@@ -1174,7 +1174,7 @@ table {  width: 100% }
 
 nav.page-nav h2 { display: none }
 nav.top-bar ul, nav.page-nav ul { list-style-type: none; padding-left: 0 }
-nav.page-nav li { display: inline-block; border: 1px solid gray; margin: 0; padding: 5px; }
+nav.page-nav li { display: inline-block; margin: 0; padding: 5px; }
 nav.page-nav li:not(:first-child) { border-left: none }
 nav.page-nav .current { font-weight: bold }
 td.num-posts { text-align: right; position: relative }
@@ -1267,6 +1267,8 @@ img.box-shadow, .box-shadow img { box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.3); b
 				max-height: calc(100vh - 2rem);
 				overflow-y: auto;
 				scroll-behavior: smooth;
+				border: 1px solid gray;
+				background: white;
 				top: 0;
 		}
 }
