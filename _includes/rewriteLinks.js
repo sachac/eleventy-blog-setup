@@ -38,7 +38,7 @@ function RewriteLinksPlugin(eleventyConfig, defaultOptions = {}) {
 		opts.extensions,
 		/** @this {object} */
 		function (url) {
-			if (url.startsWith(opts.baseHref)) {
+			if (url.startsWith(opts.baseHref) && !url.match(/wp-content/)) {
 				return url.substring(opts.baseHref.length);
 			}
 			else {
