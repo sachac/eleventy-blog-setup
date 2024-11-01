@@ -32,6 +32,7 @@
 		"eleventy-plugin-future-post": "^0.0.2",
 		"eleventy-plugin-page-assets": "file:../../vendor/eleventy-plugin-page-assets",
 		"loading-attribute-polyfill": "^2.0.1",
+		"node-html-parser": "^6.1.13",
 		"sharp": "^0.33.2",
 		"ts-server": "^0.0.15",
 		"videojs-playlist": "^5.2.0",

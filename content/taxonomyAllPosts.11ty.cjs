@@ -41,7 +41,7 @@ module.exports = class TaxonomyAllPosts {
 			}
 		}
     return `<article>
-<h2><a href="/blog/${item.type}">${base}</a>: <a href="/blog/${item.type}/${item.key}">${item.key}</a>: <a href="${data.page.url}"/>All posts</h2>
+<h2><a href="/blog/${item.type}">${base}</a>: <a href="/blog/${item.type}/${item.key}">${item.key}</a>: <a href="${data.page.url}"/>All ${item.list.length} ${item.list.length == 1 ? 'post' : 'posts'}</h2>
 ${topicLink}
 ${await this.archive(item.list, archiveType)}
 </article>

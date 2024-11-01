@@ -1,5 +1,6 @@
 import { getSketchInfo } from './sketch.js';
 import { DateTime } from 'luxon';
+import { parse } from "node-html-parser";
 
 function readableDate(date) {
 	return DateTime.fromJSDate(new Date(date)).toFormat('LLL d, yyyy');
@@ -23,13 +24,13 @@ export async function gallery(list, ref) {
 			let noImage = [];
 			await list.reduce(async (prev, item) => {
 				await prev;
-				const m = item.content.match(/src="(.+?)"/);
+				const m = item.content?.match(/src="(.+?)"/);
 				const title = item?.data?.title?.replace(/^(Visual book (notes?|review)|Sketched Book|Sketchnotes) *[:\-] /i, '');
 				if (m && m[1]) {
 					const { full, fullMetadata } = await getSketchInfo(m[1], title);
 					images.push(`<figure>
 <a href="${item.url}"><picture>
-<img src="${m[1]}" title="${title}" data-src="${full}" data-w="${fullMetadata?.width}" data-h="${fullMetadata?.height}" data-w="${fullMetadata?.width}" loading="lazy" decoding="async" />
+<img src="${m[1]}" title="${title}" data-src="${full || m[1]}" data-w="${fullMetadata?.width || ''}" data-h="${fullMetadata?.height || ''}" data-w="${fullMetadata?.width || ''}" loading="lazy" decoding="async" />
 <figcaption>${title}</figcaption></a>
 ${readableDate(item.date)}
 </picture></figure>`);
@@ -37,27 +38,36 @@ ${readableDate(item.date)}
 					noImage.push(item);
 				}
 			}, null);
-			let otherImages = '';
+			let otherPosts = '';
 			if (noImage.length > 0) {
-				otherImages = `Other posts: <ul>
-    ${noImage.map(item => `<li><a href="${item.data.page.url}">${item.data.title}</a> - ${readableDate(item.date)}</li>`).join("")}
+				otherPosts = `Other posts: <ul>
+    ${noImage.map(item => `<li><a href="${item.data.page.url}">${item.data.title}</a>${item.date ? ' - ' + readableDate(item.date) : ''}</li>`).join("")}
 			</ul>`;
 			}
 	return `<section class="archive">
 <div class="gallery">${images.join("\n")}</div>
-${otherImages}
+${otherPosts}
     </section>`;
 }
 
 export async function galleryList(content, ref) {
 	const allPosts = ref.ctx.environments.collections._posts;
-	const posts = [...content.matchAll(/href="(.+?)"/g)].map((match) => {
-		const post = allPosts.find((post) => match[1].indexOf(post.url) >= 0);
-		return post;
-	}).filter((o) => o);
+	const root = parse(content);
+	const posts = [...root.querySelectorAll('a')].map((link) => {
+		const post = allPosts.find((post) => link.getAttribute('href')?.indexOf(post.url) >= 0);
+		if (post) {
+			return post;
+		} else {
+			return {
+				url: link.getAttribute('href'),
+				data: { title: link.textContent, page: {url: link.getAttribute('href')}}
+			}
+		}
+	});
 	const text = await gallery(posts, ref);
 	return text;
 }
+
 export default (eleventyConfig) => {
 	eleventyConfig.addPairedAsyncShortcode('gallerylist', async function (content) {
 		return await galleryList(content, this);

@@ -27,7 +27,7 @@ module.exports = eleventyConfig =>
 <div class="sticky contain-to-grid top-menu">
   <nav class="top-bar">
     <ul class="links">
-      <li><a href="/blog/resources">Resources</a></li>
+      <li><a href="/topic">Topics</a></li>
       <li><a href="/blog/contact/">Contact</a></li>
       <li><a href="/blog/search/">Search</a></li>
       <li><a href="/blog/random/?redirect">Random</a></li>

@@ -4,7 +4,7 @@ module.exports = eleventyConfig =>
   <ul class="links">
     <li><a href="/blog">Home</a></li>
     <li><a href="/blog/about/">About</a></li>
-    <li><a href="/blog/outline/">Outline</a></li>
+    <li><a href="/topic/">Topics</a></li>
     <li><a href="/blog/archive/">Archives</a></li>
     <li><a href="/blog/privacy">Privacy</a>
     <li><a href="/blog/contact">Contact</a>

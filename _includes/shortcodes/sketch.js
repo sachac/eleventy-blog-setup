@@ -23,7 +23,7 @@ async function findImageByFilename(filename) {
   if (!file) {
     file = sketches.find((x) => x.startsWith(m[0]));
   }
-  if (!file) {
+  if (!file && id) {
     file = sketches.find((x) => x.startsWith(id[0]));
   }
   return file;
@@ -50,14 +50,20 @@ export async function getSketchInfo(filename, cap) {
   let thumbnail = 'https://sketches.sachachua.com/thumbnails/' + encoded;
   let full = 'https://sketches.sachachua.com/static/' + encoded;
   if (!actualFilename) {
-    console.log(filename, actualFilename);
+		return { };
   }
-  let thumbFile = path.join(THUMBNAIL_DIR, actualFilename);
-  let fullFile = path.join(DATA_DIR, actualFilename);
+	let thumbFile, fullFile;
+	if (THUMBNAIL_DIR && actualFilename) {
+		thumbFile = path.join(THUMBNAIL_DIR, actualFilename);
+	}
+	if (DATA_DIR && actualFilename) {
+		fullFile = path.join(DATA_DIR, actualFilename);
+	}
   let thumbMetadata, fullMetadata;
   try {
-    fs.accessSync(thumbFile);
-    thumbMetadata = await sharp(thumbFile).metadata();
+		if (thumbFile && fs.accessSync(thumbFile)) {
+			thumbMetadata = await sharp(thumbFile).metadata();
+		}
   } catch (err) {
     thumbMetadata = null;
   }
