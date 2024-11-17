@@ -20,7 +20,7 @@ module.exports = class Years {
     return `<article>
 ${this.pageNav(data)}
 <h2>${data.title}</h2>
-${await this.archive(data.pagination.items[0].list, 'table')}
+${await this.archive(data.pagination.items[0].list.reverse(), 'table')}
 </article>
 `;
   }
