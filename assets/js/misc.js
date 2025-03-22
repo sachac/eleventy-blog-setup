@@ -458,8 +458,8 @@ function copyLink(event) {
 function addLinkIcons() {
 	document.querySelectorAll('h1[id], h2[id], h3[id], p[id]').forEach((o) => {
 		const link = document.createElement('a');
-		// TODO: use absolute link
-		link.href = window.location.origin + window.location.pathname + '#' + o.getAttribute('id');
+		const article = o.closest('article[data-url]');
+		link.href = window.location.origin + (article?.getAttribute('data-url') || window.location.pathname) + '#' + o.getAttribute('id');
 		link.innerHTML = '&#x1F517;';  // link icon
 		link.title = 'anchor';
 		link.classList.add('anchor-icon');
