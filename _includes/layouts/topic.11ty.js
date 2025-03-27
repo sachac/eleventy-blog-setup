@@ -11,6 +11,6 @@ export default class  {
 		if (cat) {
 			categoryLink = `<div class="category-link"><a href="/blog/category/${slug}">List all posts in chronological order instead</a></div>`;
 		}
-    return `<article><h1><a href="/topic">Topic</a> - <a href="${page.permalink}">${page.title}</a></h1>${categoryLink}${await page.content}</article>${categoryLink}`;
+    return `<article><h1 data-pagefind-meta="title"><a href="/topic">Topic</a> - <a href="${page.permalink}">${page.title}</a></h1>${categoryLink}${await page.content}</article>${categoryLink}`;
   };
 }
