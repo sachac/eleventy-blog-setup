@@ -11,6 +11,8 @@ import { EleventyHtmlBasePlugin } from "@11ty/eleventy";
 import RewriteLinksPlugin from './_includes/rewriteLinks.js';
 import { groupByDateFormat } from './_includes/group.js';
 import { taxonomyCollection, taxonomyPages, taxonomyFeed } from './_includes/taxonomyHierarchy.js';
+import automaticNoopener from 'eleventy-plugin-automatic-noopener';
+import postGraph from '@rknightuk/eleventy-plugin-post-graph';
 // import futurePost from 'eleventy-plugin-future-post';
 
 export default async function(eleventyConfig) {
@@ -23,6 +25,7 @@ export default async function(eleventyConfig) {
   eleventyConfig.setTemplateFormats(["html", "md", "liquid", "njk", "11ty.js"]);
   eleventyConfig.addPlugin(syntaxHighlight);
   eleventyConfig.addPlugin(pluginRss);
+	eleventyConfig.addPlugin(automaticNoopener);
 	eleventyConfig.addJavaScriptFunction("absoluteUrl", pluginRss.absoluteUrl);
   eleventyConfig.setDataDeepMerge(true);
 	eleventyConfig.addFilter("justYear", (dateString) => {
@@ -85,8 +88,9 @@ export default async function(eleventyConfig) {
   eleventyConfig.addCollection('_taxonomyFeed', function(collectionApi) {
 		return taxonomyFeed(collectionApi, perPage, this);
 	});
+	eleventyConfig.addPlugin(postGraph);
 	eleventyConfig.addPlugin(EleventyHtmlBasePlugin, {
-		baseHref: process.env.NODE_ENV == 'production' ? 'https://sachachua.com' : 'http://localhost:8080',
+		baseHref: process.env.NODE_ENV == 'production' ? 'https://sachachua.com' : '',
 	});
 
 	if (process.env.NODE_ENV != 'production') {
