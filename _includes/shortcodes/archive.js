@@ -54,7 +54,7 @@ export async function galleryList(content, ref) {
 	const allPosts = ref.ctx.environments.collections._posts;
 	const root = parse(content);
 	const posts = [...root.querySelectorAll('a')].map((link) => {
-		const post = allPosts.find((post) => link.getAttribute('href')?.indexOf(post.url) >= 0);
+		const post = allPosts?.find((post) => link.getAttribute('href')?.indexOf(post.url) >= 0);
 		if (post) {
 			return post;
 		} else {
