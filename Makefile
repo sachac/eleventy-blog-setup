@@ -3,6 +3,9 @@ NODE_ENV := production
 all:
 	NODE_ENV=${NODE_ENV} npx eleventy --quiet
 
+search:
+	npx -y pagefind --site _site
+
 noisy:
 	npx eleventy --serve
 
@@ -44,7 +47,7 @@ ignore-most:
 keep-all:
 	cp .eleventyignore.base .eleventyignore
 
-generate-all: keep-all all rsync nginx ignore-most
+generate-all: keep-all all search rsync nginx ignore-most
 	notify-send "All posts uploaded."
 
 server-all: keep-all all cp server-nginx ignore-most
