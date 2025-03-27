@@ -36,7 +36,7 @@ module.exports = eleventyConfig =>
   </nav>
 </div>
   <h1>
-    <a href="/blog"><img id="site-logo" src="${ data.metadata.siteLogo }" width="640" height="116" alt="${ data.metadata.title }"></a>
+    <a id="site-logo-link" href="/blog"><img id="site-logo" src="${ data.metadata.siteLogo }" width="640" height="116" alt="${ data.metadata.title }"></a>
   </h1>
 </header>`;
   });
