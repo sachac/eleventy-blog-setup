@@ -23,6 +23,6 @@ module.exports = class Post {
 // ${(index >= 0 && index < sorted.length ? this.itemLink(sorted[index + 1]) : '')}
     // </nav>`;
     let nav = prevNext ? `<nav class="pages">${prevNext}</nav>` : '';
-    return nav + (await this.post(data, 0, true)) + nav;
+    return nav + '<div data-pagefind-body>' + (await this.post(data, 0, true)) + '</div>' + nav;
   }
 };
