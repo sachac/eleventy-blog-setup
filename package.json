@@ -14,6 +14,7 @@
 		"@11ty/eleventy-cache-assets": "^2.2.1",
 		"@11ty/eleventy-plugin-rss": "^1.1.1",
 		"@11ty/eleventy-plugin-syntaxhighlight": "^3.1.1",
+		"@rknightuk/eleventy-plugin-post-graph": "^1.0.8",
 		"eleventy-plugin-date": "^1.0.0",
 		"eleventy-plugin-lazyimages": "^2.1.0",
 		"jsdom": "^16.6.0",
@@ -26,9 +27,10 @@
 		"turndown": "^7.0.0"
 	},
 	"dependencies": {
-		"@11ty/eleventy": "3.0.0-alpha.20",
+		"@11ty/eleventy": "3.0.1-alpha.4",
 		"@11ty/eleventy-img": "^3.1.8",
 		"@11ty/eleventy-upgrade-help": "^3.0.1",
+		"eleventy-plugin-automatic-noopener": "^2.0.2",
 		"eleventy-plugin-future-post": "^0.0.2",
 		"eleventy-plugin-page-assets": "file:../../vendor/eleventy-plugin-page-assets",
 		"loading-attribute-polyfill": "^2.0.1",
@@ -36,6 +38,7 @@
 		"sharp": "^0.33.2",
 		"ts-server": "^0.0.15",
 		"videojs-playlist": "^5.2.0",
-		"videojs-playlist-ui": "^5.0.0"
+		"videojs-playlist-ui": "^5.0.0",
+		"watchman": "^1.0.0"
 	}
 }
