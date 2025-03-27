@@ -14,7 +14,8 @@ module.exports = (eleventyConfig) => {
 		<pubDate>${item.date.toUTCString()}</pubDate>
     ${item.data.categories?.map((cat) => `<category>${cat}</category>`).join("\n") || ''}
 		<guid isPermaLink="false">${this.guid(item)}</guid>
-		<description><![CDATA[${content}]]></description>
+		<description><![CDATA[${content}
+<p>${this.comments(item, true)}</p>]]></description>
 		</item>`;
   });
 };
