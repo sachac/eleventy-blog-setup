@@ -13,7 +13,7 @@ module.exports = (eleventyConfig) => {
     <published>${this.dateToRfc3339(item.date)}</published>
     ${(item.data?.categories || []).map((cat) => `<category term="${cat}" />`).join("\n")}
 		<id>${this.guid(item)}</id>
-		<content type="html"><![CDATA[${content}]]></content>
+		<content type="html"><![CDATA[${content}<p>${this.comments(item, true)}</p>]]></content>
 		</entry>`;
   });
 };
