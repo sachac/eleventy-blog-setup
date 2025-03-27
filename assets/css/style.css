@@ -1,4 +1,4 @@
-/*  
+ /*
 Theme Name: Sacha Chua
 Theme URI: http://www.sachachua.com
 Description: A new theme 
@@ -9,6 +9,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
 
 /* Variables */
+
 
 :root {
 		--quote-bg: #eee;
@@ -659,7 +660,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 }
 
-* { box-sizing: border-box }
+*, body * { box-sizing: border-box }
 p {
     text-rendering: auto;
 }
@@ -710,8 +711,8 @@ a img.aligncenter {
 }
 
 .wp-caption {
-    background: #fff;
-    border: 1px solid #f0f0f0;
+    background: var(--modus-bg-main);
+    border: 1px solid var(--modus-border);
     max-width: 96%; /* Image does not overflow the content area */
     padding: 5px 3px 10px;
     text-align: center;
@@ -751,22 +752,21 @@ a img.aligncenter {
 }
 /* END RECAPTCHA STYLING */
 
+html, body { overflow-x: hidden; }
+
 body{
+		position: relative;
     font-size: 100%;
     line-height: 1.6;
     padding-left: 15px; padding-right: 15px;
 	  font-family: 'Open Sans', Calibri, Trebuchet MS, Verdana, Arial, Sans-Serif;
 	  text-align: left;
 	  vertical-align: top;
-	  background: #FFF;
-    color: #000;
+	  background: var(--modus-bg-main);
+    color: var(--modus-fg-main);
 		padding-bottom: 40px;
 }
 
-body.wp-night-mode-on * { color: white }
-body.wp-night-mode-on a, body.wp-night-mode-on .rightbar a:link { color: #efaaaa }
-body.wp-night-mode-on .rightbar a:visited { color: #ef8888 }
-body.wp-night-mode-on { background: #000 }
 body nav.top-bar { height: auto }
 div.wpnm-button.style-1 { display: inline-block }
 #text-14 h1 { display: inline-block; font-size: 14pt; padding-bottom: 0; margin-bottom: 0 }
@@ -784,26 +784,21 @@ h3 { margin-bottom: 0 }
 	  width: 1000px;
 	  text-align: left;
 	  border: none;
-	  background: #FFF;
-}
-
-h1{
-    text-shadow: #bbb 1px 1px 1px;
-    
+	  background: var(--modus-bg-main);
 }
 
 a:link{
-	  color:#900;
-	  text-decoration-color: #AB7E7E;
+	  color: var(--modus-red-warmer);
+	  text-decoration-color: var(--modus-bg-clay);
 }
 
 a:hover{
 	  text-decoration: underline;
-	  color: #333;
+	  color: var(--modus-red-intense);
 }
 
 a:visited{
-	  color:#210904;
+	  color: var(--modus-fg-ochre);
 }
 
 a img {
@@ -913,7 +908,7 @@ textarea#comment {
 .entry img.frame { 
 	  padding: 6px; 
 	  margin: 0.5em 0 0.5em 15px; 
-	  border: 1px solid #CCC;
+	  border: 1px solid var(--modus-border);
 	  float: right; 
 	  clear: right; 
 }
@@ -926,7 +921,6 @@ textarea#comment {
 .archive_head { 
 	  text-align: center;
 	  font-style: normal; 
-	  color: #900; 
 	  margin: 25px auto 10px 30px;
 }
 
@@ -956,9 +950,9 @@ div.title{
 	  text-transform: normal;
 }
 
-pre { overflow: auto; padding: 5px 5px 5px 5px; -webkit-box-shadow: #aaa 1px 1px 2px; border: 1px solid #aaa }
+pre { overflow: auto; padding: 5px 5px 5px 5px; -webkit-box-shadow: #aaa 1px 1px 2px; border: 1px solid var(--modus-border) }
 
-.postinfo{
+.postinfo {
 	  color: #600;
 	  padding: 2px 0 20px 0;
 }
@@ -986,8 +980,9 @@ p.postmetadata{
     .newer { text-align: right }
     .archive-count { text-align: center }
 		.row { display: flex; gap: 10px }
-		.row .half { flex-grow: 1 }
+		.row .half, .row .columns { flex-grow: 1 }
 		ul, .entry ul, ol, dl { padding-left: 15px }
+		.two-col { display: grid; grid-template-columns: 1fr 1fr; }
 }
 h2.archive_head{ 
 	  font-weight: bold !important; 
@@ -1659,7 +1654,9 @@ a.comment-reply-link { font-weight: bold;
 .alignright { float: right }
 .wp-caption-text { font-size: small; font-style: italic }
 
-.bordered table, table.bordered, .bordered table th, table.bordered th, .bordered table td, table.bordered td { border: 1px solid gray; border-collapse: collapse; border-spacing: 0; padding: 2px }
+table { border-collapse: collapse; border-spacing: 0 }
+/* decided to make all tables boredered by default */
+th, td, .bordered table, table.bordered, .bordered table th, table.bordered th, .bordered table td, table.bordered td { border: 1px solid gray; border-collapse: collapse; border-spacing: 0; padding: 2px }
 table.spaced td { padding-bottom: 20px; padding-left: 3px; padding-right: 3px; }
 .number { text-align: right }
 .post h3 { font-size: 20pt; }
@@ -7930,11 +7927,15 @@ nav ul.links button { position: inherit; }
       a:hover {
         text-decoration: underline;
       }
-		.sketch-full img, .gallery img, .left-doodle, .right-doodle, .center-doodle { filter: invert(1) hue-rotate(180deg) brightness(150%) contrast(0.9); }
-		body img#site-logo:hover { content: url('/assets/images/animated-logo-dark.gif'); }
+		.sketch-full img, .gallery img, .left-doodle, .right-doodle, .center-doodle, svg { filter: invert(1) hue-rotate(180deg) brightness(150%) contrast(0.9); }
+		.no-inversion .sketch-full img, .no-inversion .gallery img { filter: unset; }
+		body a#site-logo-link:hover img { content: url('/assets/images/animated-logo-dark.gif'); }
 		img#site-logo { content: url('/assets/images/small-logo-dark.png'); }
 }
-img#site-logo:hover { content: url('/assets/images/animated-logo.gif'); }
+body a#site-logo-link:hover img {
+		 content: url('/assets/images/animated-logo.gif');
+}
+body a#site-logo-link { text-indent: -9999px }
 
 @media print {
     .expand-links { display: none }
@@ -7978,7 +7979,12 @@ article header { text-align: left;  }
 article header h2 { margin-bottom: 0;  }
 ul { margin-left: 0 }
 
-table {  width: 100% }
+table {
+		width: 100%;
+		overflow-x: auto;
+		display: block;
+		white-space: nowrap;
+}
 
 nav.page-nav h2 { display: none }
 nav.top-bar ul, nav.page-nav ul { list-style-type: none; padding-left: 0 }
@@ -7999,7 +8005,7 @@ td.num-posts .data-background-bar {
 img, video, svg { max-width: 100%; height: auto; width: auto; max-height: 80vh; margin: auto; display: block }
 embed, iframe { margin: auto; display: block }
 .pswp img, .pswp video { max-height: none }
-.body { max-width: 62.5rem }
+.body { max-width: 62rem }
 
 article.post { border-bottom: 1px solid #ccc }
 
@@ -8047,7 +8053,7 @@ summary .org-src-container pre.src { margin: 0 }
 
 .tldr { padding: 10px; border: 1px solid lightgray }
 .yt-video { text-align: center }
-figure { text-align: center }
+figure { text-align: center; margin: 0 }
 
 .hidden { display: none }
 .org-center { text-align: center }
@@ -8068,31 +8074,32 @@ img.box-shadow, .box-shadow img { box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.3); b
 
 
 @media only screen and (min-width: 95rem) {
+		html, body { overflow-x: unset; }
 		.sticky-toc, .sticky-left, .sticky-right {
-				width: calc((100vw - 62.5rem - 5rem)/2);
+				width: calc((100vw - 65rem - 5rem)/2);
 				position: sticky;
 				max-height: calc(100vh - 2rem);
 				overflow-y: auto;
 				scroll-behavior: smooth;
-				border: 1px solid gray;
 				background: white;
 				top: 0;
 				padding: 5px;
 		}
 
 		article .sticky-toc {
-				margin-right: calc((-100vw + 62.5rem)/2);
+				margin-right: calc((-100vw + 65rem)/2);
 				float: right;
 				margin-left: 0;
 		}
 		.sticky-toc, .sticky-left {
-				margin-left: calc((-100vw + 62.5rem)/2);
+				margin-left: calc((-100vw + 65rem)/2);
 				float: left;
 		}
 		.sticky-right {
-				margin-right: calc((-100vw + 62.5rem)/2);
+				margin-right: calc((-100vw + 65rem)/2);
 				float: right;
 		}
+		.sticky-toc .panzoom figure { margin: 0 }
 		.link-to-nonsticky-toc {
 				display: none
 		}
@@ -8101,15 +8108,21 @@ img.box-shadow, .box-shadow img { box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.3); b
 						background: black;
 				}
 		}
+		.left-doodle { width:200px; }
+		.right-doodle { width:200px; }
+		abbr[title]:hover::after,
+		abbr[title]:focus::after {
+				content: ""
+		}
 }
 
 
 .inline-list { padding: 0px }
 .inline-list li { display: inline-block; margin-right: 1em; }
 
-.left-doodle { float:left;width:100px; margin-left: -40px; margin-right: 10px }
-.right-doodle { float:right;width:100px; margin-right: -40px; margin-left: 10px }
-.center-doodle { text-align:center }
+.left-doodle { float:left;width:100px; margin-right: 10px }
+.right-doodle { float:right;width:100px; margin-left: 10px }
+.center-doodle { text-align:center; margin-top: 16px }
 /* @media screen and (min-width: 64.063em) { /\* min-width 1025px, large screens *\/ */
 /* 		.left-doodle { margin-left:-150px } */
 /* 		.right-doodle { margin-right: -150px; } */
@@ -8130,3 +8143,49 @@ img.box-shadow, .box-shadow img { box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.3); b
 mark { background-color: var(--modus-bg-yellow-subtle) }
 mark.green { background-color: var(--modus-bg-green-subtle) }
 mark.red { background-color: var(--modus-bg-red-subtle) }
+
+.panzoom svg.active { border: 2px solid black }
+.panzoom figure { margin-left: 0; margin-right: 0 }
+.panzoom svg { max-height: unset }
+
+.active { background-color: var(--modus-bg-tab-bar) }
+
+.entry h2, .entry h3, .entry h4, .entry p, .content h2, .content h3, .content h4, .content p { position: relative }
+div#main a.anchor-icon:link, article a.anchor-icon:link, .content a.anchor-icon:link, .entry a.anchor-icon:link { font-size: 60%; text-decoration: none !important; font-size: small; margin-right: 1em }
+
+img#site-logo {
+  width: 640px;
+  height: 116px;
+}
+
+
+/* https://www.perlmonks.org/?node_id=11161817 */
+ abbr[title] {
+        position: relative;
+
+        /* ensure consistent styling across browsers */
+        text-decoration: underline dotted;
+    }
+
+// https://bitsofco.de/making-abbr-work-for-touchscreen-keyboard-mouse/
+abbr[title]:hover::after,
+abbr[title]:focus::after {
+  content: attr(title);
+ /* position tooltip like the native one */
+  position: absolute;
+  left: 0;
+  bottom: -30px;
+  width: auto;
+  white-space: nowrap;
+
+  /* style tooltip */
+  background-color: #1e1e1e;
+  color: #fff;
+  border-radius: 3px;
+  box-shadow: 1px 1px 5px 0 rgba(0,0,0,0.4);
+  font-size: 14px;
+  padding: 3px 5px;
+}
+.bp-img img {
+		max-height: unset
+}

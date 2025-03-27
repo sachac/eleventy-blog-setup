@@ -107,100 +107,27 @@ function processTOCLink() {
 
 $('.toc-link').click(processTOCLink);
 
-function addPhotoswipeElement() {
-	$('body').append(`<!-- Root element of PhotoSwipe. Must have class pswp. -->
-<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
-
-    <!-- Background of PhotoSwipe.
-         It's a separate element as animating opacity is faster than rgba(). -->
-    <div class="pswp__bg"></div>
-
-    <!-- Slides wrapper with overflow:hidden. -->
-    <div class="pswp__scroll-wrap">
-
-        <!-- Container that holds slides.
-            PhotoSwipe keeps only 3 of them in the DOM to save memory.
-            Don't modify these 3 pswp__item elements, data is added later on. -->
-        <div class="pswp__container">
-            <div class="pswp__item"></div>
-            <div class="pswp__item"></div>
-            <div class="pswp__item"></div>
-        </div>
-
-        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
-        <div class="pswp__ui pswp__ui--hidden">
-
-            <div class="pswp__top-bar">
-
-                <!--  Controls are self-explanatory. Order can be changed. -->
-
-                <div class="pswp__counter"></div>
-
-                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-
-                <button class="pswp__button pswp__button--share" title="Share"></button>
-
-                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-
-                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-
-                <!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->
-                <!-- element will get class pswp__preloader--active when preloader is running -->
-                <div class="pswp__preloader">
-                    <div class="pswp__preloader__icn">
-                      <div class="pswp__preloader__cut">
-                        <div class="pswp__preloader__donut"></div>
-                      </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-                <div class="pswp__share-tooltip"></div>
-            </div>
-
-            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-            </button>
-
-            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-            </button>
-
-            <div class="pswp__caption">
-                <div class="pswp__caption__center"></div>
-            </div>
-
-        </div>
-
-    </div>
-</div>`);
-}
-
 $(document).ready(function() {
-  var photoswipeInfo = [];
-  function photoswipeHandler(e) {
-    e.preventDefault();
-    var pswpElement = document.querySelectorAll('.pswp')[0];
-    var options = {index: $(this).attr('data-index'),
-                   bgOpacity: 0.7,
-                   showHideOpacity: true,
-                   getDoubleTapZoom: function(isMouseClick, item) {
-                    return item.initialZoomLevel * 2;
-                  },};
-    // Initializes and opens PhotoSwipe
-    var gallery = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, photoswipeInfo, options);
-    gallery.init();
+  let images = [];
+	// initialize
+	let bp = BiggerPicture({
+		target: document.body,
+	})
+  function imageHandler(event) {
+		bp.open({
+			items: images,
+			position: event.target.closest('a').getAttribute('data-index')
+		});
+    event.preventDefault();
   }
   $('.photoswipe').each(function (index, elem) {
     $(elem).attr('data-index', index);
-    photoswipeInfo.push({ src: elem.getAttribute('data-src'),
-                          w: elem.getAttribute('data-w'),
-                          h: elem.getAttribute('data-h'),
-                          title: elem.getAttribute('data-title')});
-    $(elem).click(photoswipeHandler);
+    images.push({ img: elem.getAttribute('data-src'),
+     //             width: elem.getAttribute('data-w'),
+     //             height: elem.getAttribute('data-h'),
+                  title: elem.getAttribute('data-title')});
+    $(elem).click(imageHandler);
   });
-  if ($('.photoswipe').length > 0) {
-		addPhotoswipeElement();
-  }
 });
 
 /* audio-time */
@@ -252,33 +179,33 @@ document.addEventListener('DOMContentLoaded', synchronizeHighlights);
 
 /* Sketch gallery */
 function showGallery(event, shuffled=false) {
-	if (!document.querySelector('.pswp')) {
-		addPhotoswipeElement();
-	}
-	const pswpElement = document.querySelector('.pswp');
-	const options = { bgOpacity: 0.7, showHideOpacity: true,
-										getDoubleTapZoom: function(isMouseClick, item) {
-											return item.initialZoomLevel * 2;
-                  }};
-	let photoswipeInfo = [...document.querySelectorAll('.gallery figure')].map((o) => {
+	// initialize
+	let bp = BiggerPicture({
+		target: document.body,
+	})
+
+	let images = [...document.querySelectorAll('.gallery figure')].map((o) => {
 		const img = o.querySelector('img');
 		const link = o.querySelector('a');
 		return {
-			src: img.getAttribute('data-src'),
-			w: img.getAttribute('data-w'),
-			h: img.getAttribute('data-h'),
+			img: img.getAttribute('data-src'),
+			// width: img.getAttribute('data-w'),
+			// height: img.getAttribute('data-h'),
 			title: img.getAttribute('title'),
-			post: link.getAttribute('href')
+			caption: `<a href="${link.getAttribute('href')}">Link</a>`
 		}
 	});
-  if (shuffled) {
-    photoswipeInfo = photoswipeInfo.map(value => ({ value, sort: Math.random() }))
+	if (shuffled) {
+    images = images.map(value => ({ value, sort: Math.random() }))
       .sort((a, b) => a.sort - b.sort)
       .map(({ value }) => value);
   }
-	const gallery = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, photoswipeInfo, options);
-	gallery.init();
+  // open (will be a child of the target element above)
+	bp.open({
+		items: images,
+	});
 }
+
 function shuffleGallery() {
   showGallery(null, true);
 }
@@ -469,3 +396,62 @@ function addLinkIcons() {
 }
 
 addLinkIcons();
+
+function onThisDay() {
+	const tz = 'America/Toronto';
+  function getEffectiveDate() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const dateParam = urlParams.get('date');
+    if (dateParam && /^\d{2}-\d{2}$/.test(dateParam)) {
+      const currentYear = new Date().getFullYear();
+      const dateObj = new Date(`${currentYear}-${dateParam}T12:00:00Z`);
+      if (dateObj.getTime()) {
+        return {
+          monthDay: dateParam,
+          formatted: dateObj.toLocaleDateString('en-US', { month: 'long', day: 'numeric' })
+        };
+      }
+    }
+    const today = new Date(new Date().toLocaleString('en-US', { timeZone: tz }));
+    return {
+      monthDay: today.toISOString().substring(5, 10), // MM-DD
+      formatted: today.toLocaleDateString('en-US', { month: 'long', day: 'numeric' })
+    };
+  }
+  // Fetch and process the posts
+  fetch('/blog/all/index.json')
+    .then(response => response.json())
+    .then(posts => {
+      const dateInfo = getEffectiveDate();
+      const dateElement = document.querySelector('h3.date');
+      if (dateElement) {
+        dateElement.textContent = dateInfo.formatted;
+      }
+      const matchingPosts = posts.filter(post => {
+        const postDate = new Date(post.date).toLocaleString('en-US', { timeZone: tz });
+        const postMonthDay = (new Date(postDate)).toISOString().substring(5, 10);
+        return postMonthDay === dateInfo.monthDay;
+      });
+
+      matchingPosts.sort((a, b) => {
+        const dateA = new Date(a.date);
+        const dateB = new Date(b.date);
+        return dateB - dateA;
+      });
+
+			const elem = document.getElementById('posts-container');
+      if (matchingPosts.length > 0) {
+        const postsHTML = matchingPosts.map(post => {
+          const postDate = new Date(post.date).toLocaleString('en-US', { timeZone: tz });
+          const postYear = new Date(postDate).getFullYear();
+          return `<li>${postYear}: <a href="${post.permalink}">${post.title}</a></li>`;
+        }).join('\n');
+        elem.innerHTML = `<ul>${postsHTML}</ul>`;
+      } else {
+        elem.innerHTML = `<p>No posts were written on ${dateInfo.formatted}.</p>`;
+      }
+    })
+    .catch(error => {
+      console.error('Error fetching posts:', error);
+    });
+}

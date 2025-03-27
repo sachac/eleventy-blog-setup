@@ -27,8 +27,6 @@ return `<head profile="http://gmpg.org/xfn/11">
   src="/assets/js/jquery-3.5.1.slim.min.js"
   integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs="
   crossorigin="anonymous"></script>
-<script defer src="/assets/js/photoswipe.js"></script>
-<script defer src="/assets/js/photoswipe-ui-default.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <title>${title}</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />	
@@ -36,10 +34,9 @@ return `<head profile="http://gmpg.org/xfn/11">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=yes" />
 <meta name="google-site-verification" content="ktFeZ-wntcsTZ0G2mnZF0uKejd6L9YKHrlyGOezAiQU" />
 <link rel="preload" href="/assets/sachacHand-Regular.woff" as="font" />
-<link rel="stylesheet" href="//www.google.com/cse/style/look/default.css" type="text/css" /> 
-<link href='//fonts.googleapis.com/css?family=Open+Sans&display=swap' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="https://www.google.com/cse/style/look/default.css" type="text/css" />
+<link href='https://fonts.googleapis.com/css?family=Open+Sans&display=swap' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="/assets/css/style.css?date=2024-01-05" type="text/css" />
-<link rel="stylesheet" href="/assets/css/photoswipe.css" type="text/css" />
 <link rel="stylesheet" href="/assets/css/default-skin/default-skin.css" type="text/css" />
 ${atom}
 ${rss}
@@ -51,5 +48,6 @@ ${rss}
 <link rel="alternate" type="text/xml" title="RSS .92" href="https://sachachua.com/blog/feed/rss/" />
 <link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="https://sachachua.com/blog/feed/atom/" />
 <link rel="canonical" href="${ this.absoluteUrl(data.page.url, data.metadata.url) }" />
+<link rel="stylesheet" href="/assets/css/bigger-picture.min.css">
 </head>`;
   });
