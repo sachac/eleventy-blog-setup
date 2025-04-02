@@ -47,7 +47,7 @@ ignore-most:
 keep-all:
 	cp .eleventyignore.base .eleventyignore
 
-generate-all: keep-all all search rsync nginx ignore-most
+generate-all: keep-all all ignore-most search rsync nginx
 	notify-send "All posts uploaded."
 
 server-all: keep-all all cp server-nginx ignore-most
