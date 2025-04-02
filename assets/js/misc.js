@@ -342,6 +342,17 @@ function scrollToActiveTocLink() {
     });
   }
 }
+function getVisibleArticle() {
+	const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+	return [...document.querySelectorAll('article')].find((article) => {
+		const rect = article.getBoundingClientRect();
+    const visibleTop = Math.max(0, rect.top);
+    const visibleBottom = Math.min(viewportHeight, rect.bottom);
+    const visibleHeight = Math.max(0, visibleBottom - visibleTop);
+		return visibleHeight > 0; // find the first visible one
+  });
+}
+
 function handleActiveTOCLink() {
 	const updateActive = function(links, active) {
 		links.forEach(link => {
@@ -368,7 +379,7 @@ function handleActiveTOCLink() {
 				}
 			}
 		});
-		scrollToActiveTocLink(document.querySelector('.sticky-toc .active'));
+		scrollToActiveTocLink();
 	}, options);
 	posts.forEach((post) => { observer.observe(post); });
 
@@ -390,6 +401,14 @@ function handleActiveTOCLink() {
 			post.querySelectorAll('.outline-2, .outline-3').forEach((section) => { postTocObserver.observe(section) });
 		}
 	});
+	const visible = getVisibleArticle();
+	const id = visible?.id;
+	if (id) {
+		const activeLink = document.querySelector(`.toc-link[data-index="${id}"]`);
+		activeLink.classList.add('active');
+		activeLink.closest('li').classList.add('post-active');
+		scrollToActiveTocLink();
+	}
 }
 handleActiveTOCLink();
 
