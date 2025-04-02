@@ -326,6 +326,22 @@ function stickyTocAfterScrolling() {
 }
 
 stickyTocAfterScrolling();
+
+function scrollToActiveTocLink() {
+	const activeLink = document.querySelector('.sticky-toc .active');
+	const tocContainer = document.querySelector('.sticky-toc');
+  if (!activeLink || !tocContainer) return;
+  const tocRect = tocContainer.getBoundingClientRect();
+  const linkRect = activeLink.getBoundingClientRect();
+  if (linkRect.top < tocRect.top || linkRect.bottom > tocRect.bottom) {
+    const scrollPosition = linkRect.top + tocContainer.scrollTop -
+                          (tocRect.height / 2) + (linkRect.height / 2);
+    tocContainer.scrollTo({
+      top: scrollPosition,
+      behavior: 'smooth'
+    });
+  }
+}
 function handleActiveTOCLink() {
 	const updateActive = function(links, active) {
 		links.forEach(link => {
@@ -344,16 +360,19 @@ function handleActiveTOCLink() {
 			if (entry.isIntersecting) {
 				const id = entry.target.id;
 				const link = document.querySelector(`.toc-link[data-index="${id}"]`);
-				tocLinks.forEach((o) => o.classList.remove('active'));
+				document.querySelectorAll('.sticky-toc .active').forEach((o) => o.classList.remove('active'));
+				document.querySelectorAll('.post-active').forEach((o) => o.classList.remove('post-active'));
 				if (link) {
 					link.classList.add('active');
+					link.closest('li').classList.add('post-active');
 				}
 			}
 		});
+		scrollToActiveTocLink(document.querySelector('.sticky-toc .active'));
 	}, options);
 	posts.forEach((post) => { observer.observe(post); });
 
-	const stickyTocLinks = document.querySelectorAll('article .sticky-toc a');
+	const stickyTocLinks = document.querySelectorAll('article .sticky-toc a, .on-this-page a');
 	const postTocObserver = new IntersectionObserver((entries) => {
 		entries.forEach(entry => {
 			if (entry.isIntersecting) {
@@ -362,6 +381,7 @@ function handleActiveTOCLink() {
 				updateActive(stickyTocLinks, url);
 			}
 		});
+		scrollToActiveTocLink();
 	}, options);
 
 	document.querySelectorAll('article .sticky-toc').forEach((toc) => {
