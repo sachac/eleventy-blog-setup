@@ -1189,18 +1189,18 @@ li { margin-bottom: 0.5em }
 
 img#wpstats { visibility: hidden; height: 0px }
 .code, body.wp-night-mode-on .code {  color: #d8bfd8; }
-pre.comment, body.wp-night-mode-on pre.comment {
+pre.comment {
     /* font-lock-comment-face */
-    color: #ff7f24;
+    color: var(--modus-comment);
 }
 .org-function-name, body.wp-night-mode-on .org-function-name { font-weight: bold }
 .comment-delimiter, body.wp-night-mode-on .comment-delimiter {
     /* font-lock-comment-delimiter-face */
-    color: #ff7f24;
+    color: var(--modus-comment);
 }
 .constant, body.wp-night-mode-on .constant {
     /* font-lock-constant-face */
-    color: #7fffd4;
+    color: var(--modus-constant);
 }
 .default, body.wp-night-mode-on .default {
     /* default */
@@ -1209,15 +1209,15 @@ pre.comment, body.wp-night-mode-on pre.comment {
 .org-keyword, body.wp-night-mode-on .org-keyword,
 .org-type, body.wp-night-mode-on .org-type {
     /* font-lock-keyword-face */
-    color: #006666;
+    color: var(--modus-keyword);
 }
 .org-string, .org-doc, body.wp-night-mode-on .org-string, body.wp-night-mode-on .org-doc {
     /* font-lock-string-face */
-    color: #99a07a;
+    color: var(--modus-string);
 }
 .variable-name, body.wp-night-mode-on .variable-name {
     /* font-lock-variable-name-face */
-    color: #eedd82;
+    color: var(--modus-variable);
 }
 
 
@@ -1226,22 +1226,22 @@ pre.comment, body.wp-night-mode-on pre.comment {
 .leftbar ul.featured_categories li { height: 100px; width: 100px; padding: 0px; margin: 0px; }
 .leftbar ul.featured_categories { margin: 0; padding: 0; }
 .footer {
-	  border-top: 1px dotted #CCC;
+	  border-top: 1px dotted var(--modus-border);
 	  border-bottom: none;
     margin-top: 20px;
 }
 .post, .post h2 { text-align: left; }
 .sketch_thumbnail li { list-style-type: none; margin: 0px; padding: 0px; width: 60px; display: inline }
 
-.future td.date { color: darkgray }
+.future td.date { color: var(--modus-bg-dim) }
 .future td.future_title { margin-left: 10px; margin-right: 10px; }
 td { vertical-align: top }
 th { text-align: left }
-.message { border: 1pt solid black; background-color: lightyellow; padding: 10px }
+.message { border: 1pt solid var(--modus-border); background-color: var(--modus-bg-changed); padding: 10px }
 .entry a:link, entry a:visited { text-decoration: underline }
 body .gsc-control-cse { padding: 0px; }
 body .gsc-control-cse { border: 0px; }
-body .cse .gsc-results div.gsc-cursor-current-page { background: white; border: 1pt solid darkred }
+body .cse .gsc-results div.gsc-cursor-current-page { background: var(--modus-bg-main); border: 1pt solid var(--modus-border) }
 .bulk .title { padding: 0; margin-top: 2em}
 .bulk { padding-left: 20px; }
 #cboxLoadedContent {overflow: hidden !important;}
@@ -7931,7 +7931,8 @@ nav ul.links button { position: inherit; }
       a:hover {
         text-decoration: underline;
       }
-		.sketch-full img, .gallery img, .left-doodle, .right-doodle, .center-doodle, svg { filter: invert(1) hue-rotate(180deg) brightness(150%) contrast(0.9); }
+			.bp-img img .sketch-full img, .gallery img, .left-doodle, .right-doodle, .center-doodle, svg { filter: invert(1) hue-rotate(180deg) brightness(150%) contrast(0.9); }
+			.bp-img img { background-color: black; }
 		.no-inversion .sketch-full img, .no-inversion .gallery img { filter: unset; }
 		body a#site-logo-link:hover img { content: url('/assets/images/animated-logo-dark.gif'); }
 		img#site-logo { content: url('/assets/images/small-logo-dark.png'); }
@@ -7996,7 +7997,7 @@ nav.page-nav li:not(:first-child) { border-left: none }
 nav.page-nav .current { font-weight: bold }
 td.num-posts { text-align: right; position: relative }
 td.num-posts .data-background-bar {
-    background-color: lightgray;
+    background-color: var(--modus-bg-dim);
     overflow: visible;
     z-index: -1;
     display: inline-block;
@@ -8010,14 +8011,13 @@ embed, iframe { margin: auto; display: block }
 .pswp img, .pswp video { max-height: none }
 
 
-article.post { border-bottom: 1px solid #ccc }
+article.post { border-bottom: 1px solid var(--modus-border) }
 
 .sketch-thumbnails { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; width: 100%  }
 .sketch-thumbnails .sketch-thumbnail { width: auto; max-width: auto }
 .sketch-thumbnail { display: inline-block; max-width: 33%; margin-bottom: 30px }
 .sketch-full { max-width: 100%; margin-bottom: 30px; text-align: center }
 details summary h1, details summary h2, details summary h3, details summary h4, details summary h5, details summary h6 { display: inline-block }
-.pswp__img { background-color: white }
 
 .screen-reader-text {
      border: 0;
@@ -8032,7 +8032,7 @@ details summary h1, details summary h2, details summary h3, details summary h4, 
   word-wrap: normal !important;
 }
 
-.datatable td, .datatable th { border: 1px solid #ccc }
+.datatable td, .datatable th { border: 1px solid var(--modus-bg-dim) }
 
 /* Start of copy code */
 pre.src { margin: 0 }
@@ -8041,7 +8041,7 @@ pre.src { margin: 0 }
 		margin: 0 0;
 		padding: 1.75rem 0 1.75rem 1rem;
 }
-div > details { padding: 20px; border: 1px solid lightgray }
+div > details { padding: 20px; border: 1px solid var(--modus-border) }
 .org-src-container > details  { padding: 0; border: none }
 details > .org-src-container { padding: 0; border: none }
 summary { position: relative; }
@@ -8054,7 +8054,7 @@ summary .org-src-container pre.src { margin: 0 }
 }
 /* End of copy code */
 
-.tldr { padding: 10px; border: 1px solid lightgray }
+.tldr { padding: 10px; border: 1px solid var(--modus-bg-dim) }
 .yt-video { text-align: center }
 figure { text-align: center; margin: 0 }
 
@@ -8073,11 +8073,12 @@ figure { text-align: center; margin: 0 }
 }
 
 div.topic-link { margin-bottom: 1em; }
-img.box-shadow, .box-shadow img { box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.3); border: 1px solid #ccc }
+img.box-shadow, .box-shadow img { box-shadow: 10px 5px 5px var(--modus-bg-inactive); border: 1px solidvar(--modus-border) }
 
 
 .body { max-width: var(--body-max-width) }
 
+.on-this-page > ul > li > ul, .on-this-page > ul > li > div { display: none }
 @media only screen and (min-width: 95rem) {
 		html, body { overflow-x: unset; }
 		.sticky-toc, .sticky-left, .sticky-right {
@@ -8086,7 +8087,7 @@ img.box-shadow, .box-shadow img { box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.3); b
 				max-height: calc(100vh - 2rem);
 				overflow-y: auto;
 				scroll-behavior: smooth;
-				background: white;
+				background: var(--modus-bg-main);
 				top: 0;
 				padding: 1rem;
 		}
@@ -8159,8 +8160,6 @@ mark.red { background-color: var(--modus-bg-red-subtle) }
 .panzoom figure { margin-left: 0; margin-right: 0 }
 .panzoom svg { max-height: unset }
 
-.active { background-color: var(--modus-bg-tab-bar) }
-
 .entry h2, .entry h3, .entry h4, .entry p, .content h2, .content h3, .content h4, .content p { position: relative }
 div#main a.anchor-icon:link, article a.anchor-icon:link, .content a.anchor-icon:link, .entry a.anchor-icon:link { font-size: 60%; text-decoration: none !important; font-size: small; margin-right: 1em }
 
@@ -8190,15 +8189,16 @@ abbr[title]:focus::after {
   white-space: nowrap;
 
   /* style tooltip */
-  background-color: #1e1e1e;
-  color: #fff;
+  background-color: var(--modus-fg-dim);
+  color: var(--modus-bg-main);
   border-radius: 3px;
-  box-shadow: 1px 1px 5px 0 rgba(0,0,0,0.4);
+  box-shadow: 1px 1px 5px 0 var(--modus-by-inactive);
   font-size: 14px;
   padding: 3px 5px;
 }
 .bp-img img {
-		max-height: unset
+		max-height: unset;
+		background: var(--modus-bg-main);
 }
 
 /* Comments */
@@ -8209,7 +8209,7 @@ abbr[title]:focus::after {
     margin-top: 2em;
     /* This is where the threading magic happens */
     padding-left: 1.5em;
-    border-left: 4px solid #eee;
+    border-left: 4px solid var(--modus-border);
 }
 .static-comments-title {
     float: left;
