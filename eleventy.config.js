@@ -42,16 +42,13 @@ export default async function(eleventyConfig) {
   });
   eleventyConfig.addPassthroughCopy("assets");
   eleventyConfig.addPassthroughCopy('.well-known');
-  eleventyConfig.addPassthroughCopy('blog', {
+	const copyOptions = {
 		filter: path => {
-			let include = !path.match(/(html|index\\.json)$/);
+			let include = !path.match(/\.(html|json)$/);
 			return include;
-		}});
-  eleventyConfig.addPassthroughCopy('topic', {
-		filter: path => {
-			let include = !path.match(/(html|index\\.json)$/);
-			return include;
-		}});
+		}};
+  eleventyConfig.addPassthroughCopy('blog', copyOptions);
+  eleventyConfig.addPassthroughCopy('topic', copyOptions);
   eleventyConfig.addPassthroughCopy("uploads");
   eleventyConfig.addPassthroughCopy("robots.txt");
   eleventyConfig.addPassthroughCopy({"assets/icons": "/"});
