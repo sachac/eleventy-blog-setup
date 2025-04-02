@@ -8089,7 +8089,11 @@ img.box-shadow, .box-shadow img { box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.3); b
 		article .sticky-toc {
 				display: none
 		}
-		.sticky-toc, .sticky-left {
+
+		.single-post article .sticky-toc {
+				display: block;
+		}
+		.sticky-toc, .sticky-left, .single-post article .sticky-toc {
 				margin-left: calc((-100vw + var(--body-max-width))/2);
 				float: left;
 		}

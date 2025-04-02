@@ -1,7 +1,8 @@
 module.exports = class Post {
   data() {
     return {
-      layout: 'layouts/base'
+      layout: 'layouts/base',
+			bodyClasses: 'single-post'
     };
   }
   async render (data) {
