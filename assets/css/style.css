@@ -8167,7 +8167,7 @@ img#site-logo {
         text-decoration: underline dotted;
     }
 
-// https://bitsofco.de/making-abbr-work-for-touchscreen-keyboard-mouse/
+/* https://bitsofco.de/making-abbr-work-for-touchscreen-keyboard-mouse/ */
 abbr[title]:hover::after,
 abbr[title]:focus::after {
   content: attr(title);
@@ -8188,4 +8188,66 @@ abbr[title]:focus::after {
 }
 .bp-img img {
 		max-height: unset
+}
+
+/* Comments */
+.static-comments-reply {
+    margin: 1em 0 3em;
+}
+.static-comments-reply > .static-comments-reply {
+    margin-top: 2em;
+    /* This is where the threading magic happens */
+    padding-left: 1.5em;
+    border-left: 4px solid #eee;
+}
+.static-comments-title {
+    float: left;
+    margin: 0;
+}
+.static-comments-img {
+    float: left;
+    max-width: 30px;
+    margin-right: 1em;
+    border-radius: 50%;
+}
+.static-comments-msg {
+    clear: both;
+    line-height: 1.7;
+    margin-top: 1em;
+}
+.static-comments-date {
+    float: left;
+    clear: left;
+    font-size: 0.8125em; /* 13px /16 */
+}
+@media (min-width: 25em) { /* 400px */
+    .static-comments-date {
+        float: right;
+        clear: none;
+    }
+}
+
+/* Clearfixes */
+.static-comments-hed:before,
+.static-comments-hed:after,
+.static-comments-msg:before,
+.static-comments-msg:after {
+    content: " ";
+    display: table;
+}
+.static-comments-hed:after,
+.static-comments-msg:after {
+    clear: both;
+}
+.comments h3 { margin: 0 }
+
+/* Assumed audience */
+.assumed_audience {
+	padding: 10px;
+  border-radius: 5px;
+  border: 1px solid var(--modus-border);
+}
+.assumed_audience p, .assumed_audience ul  {
+		margin-bottom: 0;
+		margin-top: 0;
 }
