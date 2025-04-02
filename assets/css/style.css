@@ -11,8 +11,10 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 /* Variables */
 
 
+/* Colors */
 :root {
 		--quote-bg: #eee;
+		--body-max-width: 55rem;
 }
 
 /* Based on Modus Operandi by Protesilaos Stavrou */
@@ -660,6 +662,8 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 }
 
+/** Other rules */
+
 *, body * { box-sizing: border-box }
 p {
     text-rendering: auto;
@@ -981,7 +985,7 @@ p.postmetadata{
     .archive-count { text-align: center }
 		.row { display: flex; gap: 10px }
 		.row .half, .row .columns { flex-grow: 1 }
-		ul, .entry ul, ol, dl { padding-left: 15px }
+		ul, .entry ul, ol, dl { padding-left: 1em }
 		.two-col { display: grid; grid-template-columns: 1fr 1fr; }
 }
 h2.archive_head{ 
@@ -1135,7 +1139,7 @@ blockquote:after {
 	content: '';
 	position: absolute;
 	left: 0;
-	top: calc(min(50%, 20px));
+	top: 20px;
 	width: 0;
 	height: 0;
 	border: 20px solid transparent;
@@ -7967,8 +7971,7 @@ h6 { font-size: 100% }
 nav.pages { display: flex }
 nav.pages a { flex-grow: 1 }
 nav.pages .right { text-align: right }
-body { margin: auto; max-width: 1024px; }
-.body { clear: both }
+.body { clear: both; margin: auto }
 header { text-align: center }
 @media screen and (max-width: 40em) {
     body { width: 100%; padding: 10px;  }
@@ -8005,7 +8008,7 @@ td.num-posts .data-background-bar {
 img, video, svg { max-width: 100%; height: auto; width: auto; max-height: 80vh; margin: auto; display: block }
 embed, iframe { margin: auto; display: block }
 .pswp img, .pswp video { max-height: none }
-.body { max-width: 62rem }
+
 
 article.post { border-bottom: 1px solid #ccc }
 
@@ -8073,17 +8076,19 @@ div.topic-link { margin-bottom: 1em; }
 img.box-shadow, .box-shadow img { box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.3); border: 1px solid #ccc }
 
 
+.body { max-width: var(--body-max-width) }
+
 @media only screen and (min-width: 95rem) {
 		html, body { overflow-x: unset; }
 		.sticky-toc, .sticky-left, .sticky-right {
-				width: calc((100vw - 65rem - 5rem)/2);
+				width: calc((100vw - var(--body-max-width) - 5rem)/2);
 				position: sticky;
 				max-height: calc(100vh - 2rem);
 				overflow-y: auto;
 				scroll-behavior: smooth;
 				background: white;
 				top: 0;
-				padding: 5px;
+				padding: 1rem;
 		}
 
 		article .sticky-toc {
