@@ -270,17 +270,14 @@ function addPanZoom() {
 addPanZoom();
 
 function stickyTocAfterScrolling() {
-	const elements = document.querySelectorAll('.sticky-toc-after-scrolling');
+	const elements = document.querySelectorAll('.single-post .sticky-toc-after-scrolling');
 	let lastScroll = window.scrollY;
-	const cloneMap = new WeakMap();
 
 	elements.forEach(element => {
 		const clone = element.cloneNode(true);
 		clone.setAttribute('class', 'sticky-toc');
-		cloneMap.set(element, clone);
+		clone.querySelector('.panzoom')?.classList.remove('panzoom');
 		element.parentNode.insertBefore(clone, element.nextSibling);
-		const zoom = panZoom = svgPanZoom(clone.querySelector('svg'));
-		zoom.resetZoom();
 	});
 
 	const observer = new IntersectionObserver(
@@ -355,8 +352,17 @@ function getVisibleArticle() {
 
 function handleActiveTOCLink() {
 	const updateActive = function(links, active) {
+		const activeFragment = active.includes('#') ?
+					active.substring(active.indexOf('#')) : '';
+		console.log('updateActive', active);
 		links.forEach(link => {
-			link.classList.toggle('active', link.href == active)
+			const href = link.getAttribute('href');
+			console.log(href, window.location.origin, active, activeFragment);
+			if (href.includes(window.location.origin)) {
+				link.classList.toggle('active', href == active)
+			} else if (href.startsWith('#')) {
+				link.classList.toggle('active', href == activeFragment);
+			}
 		});
 	};
 	const posts = document.querySelectorAll('.post');
@@ -375,7 +381,8 @@ function handleActiveTOCLink() {
 				document.querySelectorAll('.post-active').forEach((o) => o.classList.remove('post-active'));
 				if (link) {
 					link.classList.add('active');
-					link.closest('li').classList.add('post-active');
+					const item = link.closest('li');
+					item.classList.add('post-active');
 				}
 			}
 		});
@@ -395,7 +402,7 @@ function handleActiveTOCLink() {
 		scrollToActiveTocLink();
 	}, options);
 
-	document.querySelectorAll('article .sticky-toc').forEach((toc) => {
+	document.querySelectorAll('article .sticky-toc, article .sticky-toc-after-scrolling').forEach((toc) => {
 		const post = toc.closest('article');
 		if (post) {
 			post.querySelectorAll('.outline-2, .outline-3').forEach((section) => { postTocObserver.observe(section) });
@@ -405,9 +412,11 @@ function handleActiveTOCLink() {
 	const id = visible?.id;
 	if (id) {
 		const activeLink = document.querySelector(`.toc-link[data-index="${id}"]`);
-		activeLink.classList.add('active');
-		activeLink.closest('li').classList.add('post-active');
-		scrollToActiveTocLink();
+		if (activeLink) {
+			activeLink.classList.add('active');
+			activeLink.closest('li').classList.add('post-active');
+			scrollToActiveTocLink();
+		}
 	}
 }
 handleActiveTOCLink();
@@ -494,3 +503,61 @@ function onThisDay() {
       console.error('Error fetching posts:', error);
     });
 }
+
+/* Pan zoom */
+function addPanZoomToElement(svg) {
+	let svgActive = false, svgHovered = false;
+	svg.querySelector('.svg-pan-zoom-control')?.remove();
+		svgPanZoom(svg, {
+			panEnabled: true, zoomEnabled: false, fit: true, center: true, controlIconsEnabled: true,
+			// from http://bumbu.me/svg-pan-zoom/demo/custom-event-handlers.html
+			customEventsHandler: {
+				init: function(options) {
+					function updateSvgClassName() {
+						options.svgElement.setAttribute('class', '' + (svgActive ? 'active' : '') + (svgHovered ? ' hovered' : ''));
+					}
+					this.listeners = {
+						click: function () {
+							if (svgActive) {
+								options.instance.disableZoom();
+								svgActive = false;
+							} else {
+								options.instance.enableZoom();
+								svgActive = true;
+							}
+							updateSvgClassName();
+						},
+						mouseenter: function () {
+							svgHovered = true;
+							updateSvgClassName();
+						},
+						mouseleave: function () {
+							svgActive = false;
+							svgHovered = false;
+							options.instance.disableZoom();
+							updateSvgClassName();
+						}
+					};
+					this.listeners.mousemove = this.listeners.mouseenter;
+					for (var eventName in this.listeners) {
+						options.svgElement.addEventListener(eventName, this.listeners[eventName])
+					}
+				},
+				destroy: function (options) {
+					for (var eventName in this.listeners) {
+						options.svgElement.removeEventListener(eventName, this.listeners[eventName])
+					}
+				}
+      }
+		});
+	const control = svg.querySelector('.svg-pan-zoom-control');
+	if (control) {
+		control.setAttribute(
+			'transform',
+			control.getAttribute('transform').replace(/(translate\([0-9]+ )(?:[0-9]+)\)/, function(_, p1) {
+				return p1 + '0)';
+			}));
+	}
+	svg.style.border = "1px solid black";
+}
+

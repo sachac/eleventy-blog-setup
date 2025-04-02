@@ -5,8 +5,13 @@ module.exports = function (eleventyConfig) {
 		let subtoc = '';
 		if (item.templateContent?.match(/sticky-toc/)) {
 			const doc = new JSDOM(item.templateContent).window.document;
-			const sub = doc.querySelector('.sticky-toc ul');
+			const sub = doc.querySelector('.sticky-toc ul, .sticky-toc div, .sticky-toc-after-scrolling div');
 			if (sub) {
+				if (sub.querySelector('.panzoom')) {
+					console.log('remove panzoom');
+					sub.querySelector('.panzoom').classList.remove('panzoom');  // don't do panzoom for now
+				}
+				sub.classList.remove('panzoom');
 				subtoc = sub.outerHTML;
 			}
 		}

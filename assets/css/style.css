@@ -8108,10 +8108,19 @@ img.box-shadow, .box-shadow img { box-shadow: 10px 5px 5px var(--modus-bg-inacti
 				float: right;
 		}
 		/* Hide the TOCs for non-active posts, but only if JS is enabled */
-		.js .on-this-page > ul > li > ul { display: none }
-		.on-this-page > ul > li.post-active > ul { display: block }
+		.js .on-this-page > ul > li > ul, .js .on-this-page > ul > li > div { display: none }
+		.on-this-page > ul > li.post-active > ul, .on-this-page > ul > li.post-active > div { display: block }
 
 		.sticky-toc .panzoom figure { margin: 0 }
+		.active { background-color: var(--modus-bg-tab-bar) }
+		.sticky-toc svg .active rect {
+				fill: var(--modus-bg-tab-bar) !important;
+				fill-opacity: 1 !important;
+				mix-blend-mode: darken;
+				stroke-dash-array: unset !important;
+				stroke-width: 4px;
+		}
+
 		.link-to-nonsticky-toc {
 				display: none
 		}
