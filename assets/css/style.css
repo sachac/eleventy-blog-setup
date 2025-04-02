@@ -8106,8 +8106,8 @@ img.box-shadow, .box-shadow img { box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.3); b
 				margin-right: calc((-100vw + var(--body-max-width))/2);
 				float: right;
 		}
-		/* Hide the TOCs for non-active posts */
-		.on-this-page > ul > li > ul { display: none }
+		/* Hide the TOCs for non-active posts, but only if JS is enabled */
+		.js .on-this-page > ul > li > ul { display: none }
 		.on-this-page > ul > li.post-active > ul { display: block }
 
 		.sticky-toc .panzoom figure { margin: 0 }
