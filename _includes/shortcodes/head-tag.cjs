@@ -34,7 +34,9 @@ return `<head profile="http://gmpg.org/xfn/11">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=yes" />
 <meta name="google-site-verification" content="ktFeZ-wntcsTZ0G2mnZF0uKejd6L9YKHrlyGOezAiQU" />
 <link rel="preload" href="/assets/sachacHand-Regular.woff" as="font" />
+<meta name="fediverse:creator" content="@sacha@social.sachachua.com" />
 <link rel="stylesheet" href="https://www.google.com/cse/style/look/default.css" type="text/css" />
+<link rel="webmention" href="https://webmention.io/sachachua.com/webmention" />
 <link href='https://fonts.googleapis.com/css?family=Open+Sans&display=swap' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="/assets/css/style.css?date=2024-01-05" type="text/css" />
 <link rel="stylesheet" href="/assets/css/default-skin/default-skin.css" type="text/css" />
