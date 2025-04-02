@@ -5,8 +5,8 @@ eleventyConfig.addShortcode('post', async function(item, index, includeComments)
   let categoryList = item.categories || item.data && item.data.categories;
 	let categoriesFooter = '', categories = '';
   if (categoryList && categoryList.length > 0) {
-    categoriesFooter = `<div class="footer-categories">More posts about ${this.categoryList(categories)}</div>`;
-		categories = `| <span class="categories">${this.categoryList(categories)}</span>`;
+    categoriesFooter = `<div class="footer-categories">More posts about ${this.categoryList(categoryList)}</div>`;
+		categories = `| <span class="categories">${this.categoryList(categoryList)}</span>`;
   }
 
   return  `<article class="post" id="index${index}" data-url="${item.url || item.permalink || ''}">
